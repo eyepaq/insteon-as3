@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/stevex_projects/!svn/ver/17/insteon/MeterX/src/app/insteon
+END
+ModemResponseParser.as
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/stevex_projects/!svn/ver/17/insteon/MeterX/src/app/insteon/ModemResponseParser.as
+END
+StringSocket.as
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/stevex_projects/!svn/ver/13/insteon/MeterX/src/app/insteon/StringSocket.as
+END
+ModemCommand.as
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/stevex_projects/!svn/ver/14/insteon/MeterX/src/app/insteon/ModemCommand.as
+END
+CommandBuilder.as
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/stevex_projects/!svn/ver/17/insteon/MeterX/src/app/insteon/CommandBuilder.as
+END
+PowerLineModem.as
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/stevex_projects/!svn/ver/17/insteon/MeterX/src/app/insteon/PowerLineModem.as
+END
+PowerLineModemEvent.as
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/stevex_projects/!svn/ver/17/insteon/MeterX/src/app/insteon/PowerLineModemEvent.as
+END

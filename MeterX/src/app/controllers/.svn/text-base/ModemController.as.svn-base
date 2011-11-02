@@ -1,0 +1,70 @@
+package app.controllers
+{
+	import app.insteon.CommandBuilder;
+	import app.insteon.ModemResponseParser;
+	import app.insteon.PowerLineModem;
+	import app.insteon.PowerLineModemEvent;
+	
+	import flash.events.Event;
+	import flash.events.TimerEvent;
+	import flash.utils.ByteArray;
+	import flash.utils.Timer;
+	
+	import util.HexUtils;
+
+	public class ModemController
+	{
+		public var plm:PowerLineModem;
+		public var host:String;
+		public var port:int = 9761;
+		
+		public function connect():void
+		{
+			if (plm != null)
+				plm.disconnect();
+
+			plm = new PowerLineModem(host, port);
+			plm.addEventListener(Event.CONNECT, handleModemConnect);
+			plm.connect();
+		}
+		
+		
+		protected function handleModemConnect(event:Event):void
+		{
+			trace("Connected to PLM @ " + plm.remoteAddress);
+
+			plm.removeEventListener(Event.CONNECT, handleModemConnect);
+
+			plm.addEventListener(PowerLineModemEvent.RAW_PACKET_RECEIVED, handleRawPacketReceived);
+
+
+			// Monitor Mode
+//			var monitorModebytes:ByteArray = HexUtils.hexToBytes("6b40");
+//			plm.send(monitorModebytes);
+
+			var bytes:ByteArray = CommandBuilder.buildInsteonStatusRequestCommand("18F3EA");
+//			var bytes:ByteArray = CommandBuilder.buildInsteonDeviceTextStringRequestcommand("18F3EA");
+			
+//			var bytes:ByteArray = HexUtils.hexToBytes("6217e4160f0300");
+//			var bytes:ByteArray = CommandBuilder.buildInsteonProductDataRequestCommand("18F3EA");
+//			var bytes:ByteArray = HexUtils.hexToBytes("6218f3ea0f1900");
+//			var bytes:ByteArray = CommandBuilder.buildGetModemInfoCommand();
+//			var bytes:ByteArray = CommandBuilder.buildResetModemCommand();
+
+//			var bytes:ByteArray = HexUtils.hexToBytes("6218f3ea0f1900");
+//			var bytes:ByteArray = HexUtils.hexToBytes("620000000f1900");
+
+//			trace("Sending request: " + HexUtils.bytesToHex(bytes));
+			
+			plm.send(bytes);
+
+		}
+		
+		private function handleRawPacketReceived(event:PowerLineModemEvent):void
+		{
+			trace("Received packet: " + HexUtils.bytesToHex(event.packetBytes));
+			var modemResponseParser:ModemResponseParser = new ModemResponseParser();
+			trace(modemResponseParser.bytesToString(event.packetBytes));
+		}
+	}
+}

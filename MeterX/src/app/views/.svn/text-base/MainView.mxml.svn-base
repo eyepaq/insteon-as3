@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="Power Monitor" initialize="initializeHandler(event)">
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	<fx:Script>
+		<![CDATA[
+			import app.controllers.MainViewController;
+			
+			import mx.core.UIComponent;
+			import mx.events.FlexEvent;
+			
+			import spark.components.Group;
+
+			private var controller:MainViewController;
+			
+			protected function initializeHandler(event:FlexEvent):void
+			{
+				controller = new MainViewController(this);
+			}
+			
+			protected override function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+			{
+				if (unscaledWidth > 0 && unscaledHeight > 0)
+				{
+					scaleTextToFill(wattLabel, scaleGroup, unscaledWidth, unscaledHeight);
+				}
+				
+				super.updateDisplayList(unscaledWidth, unscaledHeight);
+			}
+			
+			protected function scaleTextToFill(target:Label, outerContainer:UIComponent, containerWidth:Number, containerHeight:Number):void
+			{
+				var curSize:int = 100;
+				target.validateSize(true);
+				
+				var desiredWidth:Number = containerWidth * 0.9;
+				var desiredHeight:Number = containerHeight * 0.9;
+				
+				while (target.measuredWidth < desiredWidth && target.measuredHeight < desiredHeight)
+				{
+					curSize = curSize * 1.1;
+					target.setStyle("fontSize", curSize);
+					target.validateSize(true);
+				}
+
+				// Now slowly reduce until it fits
+				while (target.measuredWidth > desiredWidth || target.measuredHeight > desiredHeight)
+				{
+					curSize = curSize - 5;
+					target.setStyle("fontSize", curSize);
+					target.validateSize(true);
+				}
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+
+	<s:VGroup width="100%" height="100%" horizontalAlign="center" verticalAlign="middle" id="scaleGroup">
+		<s:Group height="{wattLabel.getStyle('fontSize') * 0.125}"/>
+		<s:Label id="wattLabel" text="1134" fontSize="100"/>
+	</s:VGroup>
+	
+</s:View>

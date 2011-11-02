@@ -1,0 +1,287 @@
+<insteon>
+	<modemCommands>
+		<modemCommand>
+			<command>0x50</command>
+			<description>INSTEON Standard Message Received</description>
+			<response>
+				<length>9</length>
+				<format>INSTEON Standard Message</format>
+			</response>
+		</modemCommand>
+		<modemCommand>
+			<command>0x51</command>
+			<description>INSTEON Extended Message Received</description>
+			<response>
+				<length>23</length>
+				<format>INSTEON Extended Message</format>
+			</response>
+		</modemCommand>
+		<modemCommand>
+			<command>0x52</command>
+			<description>X10 Received</description>
+			<response>
+				<length>2</length>
+			</response>
+		</modemCommand>
+		<modemCommand>
+			<command>0x53</command>
+			<description>ALL-Linking Completed</description>
+			<response>
+				<length>8</length>
+			</response>
+		</modemCommand>
+		<modemCommand>
+			<command>0x54</command>
+			<description>Powerline Modem Button Activity</description>
+			<response>
+				<length>1</length>
+			</response>
+		</modemCommand>
+		<modemCommand>
+			<command>0x55</command>
+			<description>User Reset Detected</description>
+			<response>
+				<length>0</length>
+			</response>
+		</modemCommand>
+		<modemCommand>
+			<command>0x56</command>
+			<description>ALL-Link Cleanup Failure Report</description>
+			<response>
+				<length>5</length>
+			</response>
+		</modemCommand>
+		<modemCommand>
+			<command>0x57</command>
+			<description>ALL-Link Record Response</description>
+			<response>
+				<length>8</length>
+			</response>
+		</modemCommand>
+		<modemCommand>
+			<command>0x58</command>
+			<description>ALL-Link Cleanup Status Report</description>
+			<response>
+				<length>1</length>
+			</response>
+		</modemCommand>
+		<modemCommand>
+			<command>0x60</command>
+			<description>Get Powerline Modem Info</description>
+			<transmit>
+				<length>0</length>
+			</transmit>
+			<response>
+				<length>7</length>
+			</response>
+		</modemCommand>
+		<modemCommand>
+			<command>0x61</command>
+			<description>Send ALL-Link Command</description>
+			<transmit>
+				<length>3</length>
+			</transmit>
+			<response>
+				<length>4</length>
+			</response>
+		</modemCommand>
+		<modemCommand>
+			<!--  
+				Note that the length varies based on the content of the message. 
+			-->
+			<command>0x62</command>
+			<description>INSTEON Message</description>
+			<transmit conditionByte="4" conditionMask="0x10" conditionValue="0x00">
+				<length>6</length>
+				<format>INSTEON Standard Message Echo</format>
+				<format type="insteon" offset="1" length="6"/>
+			</transmit>
+			<transmit conditionByte="4" conditionMask="0x10" conditionValue="0x10">
+				<length>20</length>
+				<format>INSTEON Extended Message Echo</format>
+				<format type="insteon" offset="1" length="20"/>
+			</transmit>
+			<response conditionByte="4" conditionMask="0x10" conditionValue="0x00">
+				<length>7</length>
+				<format>INSTEON Standard Message Echo</format>
+				<format type="insteon" offset="1" length="6"/>
+			</response>
+			<response conditionByte="4" conditionMask="0x10" conditionValue="0x10">
+				<length>21</length>
+				<format>INSTEON Extended Message Echo</format>
+				<format type="insteon" offset="1" length="20"/>
+			</response>
+			<length></length>
+		</modemCommand>
+		<modemCommand>
+			<command>0x63</command>
+			<description>Send X10</description>
+			<transmit>
+				<length>2</length>
+			</transmit>
+			<response>
+				<length>3</length>
+			</response>
+		</modemCommand>
+		<modemCommand>
+			<command>0x64</command>
+			<description>Start ALL-Linking</description>
+			<transmit>
+				<length>2</length>
+			</transmit>
+			<response>
+				<length>3</length>
+			</response>
+		</modemCommand>
+		<modemCommand>
+			<command>0x65</command>
+			<description>Cancel ALL-Linking</description>
+			<transmit>
+				<length>0</length>
+			</transmit>
+			<response>
+				<length>1</length>
+			</response>
+		</modemCommand>
+		<modemCommand>
+			<command>0x66</command>
+			<description>Set Host Device Category</description>
+			<transmit>
+				<length>3</length>
+			</transmit>
+			<response>
+				<length>4</length>
+			</response>
+		</modemCommand>
+		<modemCommand>
+			<command>0x67</command>
+			<description>Powerline Modem Reset</description>
+			<transmit>
+				<length>0</length>
+			</transmit>
+			<response>
+				<length>1</length>
+			</response>
+		</modemCommand>
+		<modemCommand>
+			<command>0x68</command>
+			<description>Set INSTEON ACK Message Byte</description>
+			<transmit>
+				<length>1</length>
+			</transmit>
+			<response>
+				<length>2</length>
+			</response>
+		</modemCommand>
+		<modemCommand>
+			<command>0x69</command>
+			<description>Get First ALL-Link Record</description>
+			<transmit>
+				<length>0</length>
+			</transmit>
+			<response>
+				<length>1</length>
+			</response>
+		</modemCommand>
+		<modemCommand>
+			<command>0x6a</command>
+			<description>Get Next ALL-Link Record</description>
+			<transmit>
+				<length>0</length>
+			</transmit>
+			<response>
+				<length>1</length>
+			</response>
+		</modemCommand>
+		<modemCommand>
+			<command>0x6b</command>
+			<description>Set Powerline Modem Configuration</description>
+			<transmit>
+				<length>1</length>
+			</transmit>
+			<response>
+				<length>2</length>
+			</response>
+		</modemCommand>
+		<modemCommand>
+			<command>0x6c</command>
+			<description>Get ALL-Link Record for Sender</description>
+			<transmit>
+				<length>0</length>
+			</transmit>
+			<response>
+				<length>1</length>
+			</response>
+		</modemCommand>
+		<modemCommand>
+			<command>0x6d</command>
+			<description>Powerline Modem LED On</description>
+			<transmit>
+				<length>0</length>
+			</transmit>
+			<response>
+				<length>1</length>
+			</response>
+		</modemCommand>
+		<modemCommand>
+			<command>0x6e</command>
+			<description>Powerline Modem LED Off</description>
+			<transmit>
+				<length>0</length>
+			</transmit>
+			<response>
+				<length>1</length>
+			</response>
+		</modemCommand>
+		<modemCommand>
+			<command>0x6f</command>
+			<description>Manage ALL-Link Record</description>
+			<transmit>
+				<length>9</length>
+			</transmit>
+			<response>
+				<length>10</length>
+			</response>
+		</modemCommand>
+		<modemCommand>
+			<command>0x70</command>
+			<description>Set INSTEON NAK Message Byte</description>
+			<transmit>
+				<length>1</length>
+			</transmit>
+			<response>
+				<length>2</length>
+			</response>
+		</modemCommand>
+		<modemCommand>
+			<command>0x71</command>
+			<description>Set INSTEON NAK Message Two Bytes</description>
+			<transmit>
+				<length>2</length>
+			</transmit>
+			<response>
+				<length>3</length>
+			</response>
+		</modemCommand>
+		<modemCommand>
+			<command>0x72</command>
+			<description>RF Sleep</description>
+			<transmit>
+				<length>0</length>
+			</transmit>
+			<response>
+				<length>1</length>
+			</response>
+		</modemCommand>
+		<modemCommand>
+			<command>0x73</command>
+			<description>Get Powerline Modem Configuration</description>
+			<transmit>
+				<length>0</length>
+			</transmit>
+			<response>
+				<length>4</length>
+			</response>
+		</modemCommand>
+ 	</modemCommands>
+</insteon>

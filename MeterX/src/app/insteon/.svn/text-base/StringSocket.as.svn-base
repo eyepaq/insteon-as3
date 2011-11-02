@@ -1,0 +1,9 @@
+package app.insteon
+{
+	public class StringSocket
+	{
+		public function StringSocket()
+		{
+		}
+	}
+}

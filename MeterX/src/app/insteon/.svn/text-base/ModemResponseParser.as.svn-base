@@ -1,0 +1,86 @@
+package app.insteon
+{
+	import app.model.AppModel;
+	
+	import flash.utils.ByteArray;
+	
+	import util.HexUtils;
+
+	public class ModemResponseParser
+	{
+		/**
+		 * Describe this modem response.
+		 */
+		public function bytesToString(bytes:ByteArray):String
+		{
+			bytes.position = 0;
+
+			var command:XML = findCommand(bytes[0]);
+			if (command == null)
+			{
+				return "Unrecognized command: " + HexUtils.bytesToHex(bytes);	
+			}
+
+			// Find a matching response
+			var response:XML = findMatchingResponse(command, bytes);
+			if (response != null)
+			{
+				var fmt:* = response.format;
+				if (response.format.length > 0)
+				{
+					trace("have format");					
+				}
+			}
+			
+			
+			return command.description;
+		}
+		
+		/**
+		 * Find a modemCommand node matching this command byte.
+		 */
+		public static function findCommand(commandByte:int):XML
+		{
+			for each (var command:XML in AppModel.instance.insteonData.modemCommands.modemCommand)
+			{
+				if (parseInt(command.command) == commandByte)
+				{
+					return command;
+				}
+			}
+			
+			return null;
+		}
+		
+		/**
+		 * Given a modemCommand XML node (from the insteon.xml file)
+		 * find the matching <response> node for the current bytes.  Note
+		 * that the packet may not be complete yet, in which case
+		 * return the first response size (which should be the smallest).
+		 */
+		public static function findMatchingResponse(command:XML, bytes:ByteArray):XML
+		{
+			var responseList:XMLList = command.response;
+			if (responseList.length() > 1)
+			{
+				// There is more than one response.  Every response should
+				// have conditionByte, conditionMask and conditionValue; the first
+				// one that matches wins.
+				for each (var response:* in responseList)
+				{
+					var testByte:int = bytes[response.@conditionByte];
+					var testMask:int = response.@conditionMask;
+					var testValue:int = response.@conditionValue
+					if ((testByte & testMask) == testValue)
+					{
+						// Found a matching response format
+						return response;
+					}
+				}	
+			}
+
+			// There's only one response, so use that one
+			return command.response[0];
+		}
+	}
+}
